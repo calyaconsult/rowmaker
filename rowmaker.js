@@ -17,11 +17,13 @@ const generateEmptyCells = (count) => {
   return emptyCells;
 };
 
-exports.mkRow = (arr,type) => {
+exports.mkRow = (arr,type,fillUp,maxFillUp) => {
+  // Die spezifische Bedingung, dass, sofern nicht anders angegeben,
+  // auf 9 Zellen aufgefüllt werden soll, kann überdacht werden
+  if (typeof maxFillUp === "undefined") {maxFillUp = 10;}
+  if (typeof fillUp === "undefined") {fillUp = 9;}
   let dummy = [''];
-  // Die spezifische Bedingung, dass auf 9 Zellen aufgefüllt werden soll,
-  // kann überdacht werden
-  if (arr.length < 9) arr = [...arr,...generateEmptyCells(10-arr.length)];
+  if (arr.length < fillUp) arr = [...arr,...generateEmptyCells(10-arr.length)];
   let row = [...dummy,...arr].reduce(chainCells(type));
   return `<tr>${row}</tr>`;
 };

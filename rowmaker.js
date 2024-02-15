@@ -22,8 +22,9 @@ exports.mkRow = (arr,type,fillUp,maxFillUp) => {
   // auf 9 Zellen aufgefüllt werden soll, kann überdacht werden
   if (typeof maxFillUp === "undefined") {maxFillUp = 10;}
   if (typeof fillUp === "undefined") {fillUp = 9;}
+  if (maxFillUp >= fillUp) {maxFillUp = fillUp + 1}
   let dummy = [''];
-  if (arr.length < fillUp) arr = [...arr,...generateEmptyCells(10-arr.length)];
+  if (arr.length < fillUp) arr = [...arr,...generateEmptyCells(maxFillUp-arr.length)];
   let row = [...dummy,...arr].reduce(chainCells(type));
   return `<tr>${row}</tr>`;
 };
